@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="mt-4">
+    <form [formGroup]="userForm">
+      <label>ID</label>
+      <input type="text" formControlName="id" />
+
+      <label>Title</label>
+      <input type="text" formControlName="title" />
+
+      <label>Body</label>
+      <input type="text" formControlName="body" />
+
+      <label>User id</label>
+      <input type="text" formControlName="userId" />
+    </form>
+  </div>
+
+  <div>
+    <button type="submit" (click)="postUser()">Submit</button>
+  </div>
+</div>
