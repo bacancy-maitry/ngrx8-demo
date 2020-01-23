@@ -43,6 +43,7 @@ export class GetUserComponent implements OnInit {
     const data = this.store.pipe(select(fromUsers.firstTenUsers));
     data.subscribe((response) => {
       console.log('response', response);
+      this.userData$ = response.users;
     });
   }
 
@@ -50,6 +51,7 @@ export class GetUserComponent implements OnInit {
     const data = this.store.pipe(select(fromUsers.getUserById(this.userId)));
     data.subscribe((response) => {
       console.log('response', response);
+      this.userData$ = response;
     });
   }
 
