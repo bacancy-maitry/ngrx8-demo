@@ -1,4 +1,17 @@
 <div class="container-fluid">
+
+  <div class="row mt-4 p-3">
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-primary" (click)="getFirstTenUsers()">Get First 10 Users</button>
+    </div>
+
+    <div class="col-md-6">
+      <input type="number" class="form-control" [(ngModel)]="userId">
+      <button type="submit" class="btn btn-primary" (click)="getUserById()">Get User By Id</button>
+    </div>
+  </div>
+
+
   <div class="row mt-4 p-3 table-responsive-xl table-responsive-lg">
     <table class="table table-bordered">
       <thead class="thead-light">

@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './_services/user.service';
 import { StoreModule } from '@ngrx/store';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { GetUserComponent } from './get-user/get-user.component';
 import { PostUserComponent } from './post-user/post-user.component';
@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
     ReactiveFormsModule,
     StoreModule.forRoot({ users: reducer }),
     EffectsModule.forRoot([UserEffects]),

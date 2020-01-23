@@ -12,9 +12,10 @@ import { SpinnerComponent } from '../_shared/spinner/spinner.component';
 export class GetUserComponent implements OnInit {
 
   userData$: Array<IUser> = [];
-  public isLoading$ = true;
+  public isLoading$: boolean;
+  public userId: number;
 
-  constructor(private store: Store<fromUsers.State>,
+  constructor(private store: Store<fromUsers.AppState>,
               private spinnerComponent: SpinnerComponent) { }
 
   ngOnInit() {
@@ -24,16 +25,31 @@ export class GetUserComponent implements OnInit {
   getUsers() {
     this.store.dispatch(fromUsers.GetUser());
 
-    this.store.pipe(select(fromUsers.allUsers)).subscribe((response) => {
-      // tslint:disable-next-line:no-string-literal
-      this.isLoading$ = response['users'].isLoading;
-      if (this.isLoading$) {
-        this.spinnerComponent.startLoading();
-      } else {
-        // tslint:disable-next-line:no-string-literal
-        this.userData$ = response['users'].data;
+    this.spinnerComponent.startLoading();
+    this.store.pipe(select(fromUsers.loader)).subscribe((response) => {
+      this.isLoading$ = response;
+    });
+
+    this.store.pipe(select(fromUsers.getAllUsers)).subscribe((response: IUser[]) => {
+      console.log('response in get user:::', response);
+      if (response) {
+        this.userData$ = response;
         this.spinnerComponent.stopLoading();
       }
+    });
+  }
+
+  getFirstTenUsers() {
+    const data = this.store.pipe(select(fromUsers.firstTenUsers));
+    data.subscribe((response) => {
+      console.log('response', response);
+    });
+  }
+
+  getUserById() {
+    const data = this.store.pipe(select(fromUsers.getUserById(this.userId)));
+    data.subscribe((response) => {
+      console.log('response', response);
     });
   }
 

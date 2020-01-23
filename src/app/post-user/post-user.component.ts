@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromUsers from '../store';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { IUser } from '../_interfaces/user';
 
 @Component({
   selector: 'app-post-user',
@@ -13,7 +14,7 @@ export class PostUserComponent implements OnInit {
   isLoading: boolean;
   userForm: FormGroup;
 
-  constructor(private store: Store<fromUsers.State>,
+  constructor(private store: Store<fromUsers.AppState>,
               private fb: FormBuilder) {
                 this.createForm();
               }
@@ -31,6 +32,10 @@ export class PostUserComponent implements OnInit {
 
   postUser() {
     this.store.dispatch(fromUsers.PostUser({ payload: this.userForm.value }));
+
+    this.store.pipe(select(fromUsers.getAllUsers)).subscribe((response: IUser[]) => {
+      console.log('response::', response);
+    });
   }
 
 }

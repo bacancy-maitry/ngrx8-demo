@@ -1,8 +1,33 @@
-import { createSelector } from '@ngrx/store';
-import { State } from './reducer';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { AppState } from './reducer';
 
-export const getUserState = (state: State) => state;
+// export const getUserState = (state: AppState) => state;
 
-export const allUsers = createSelector(getUserState, (state: State) => {
-  return state;
+export const getUserState = createFeatureSelector<AppState>('users');
+
+export const loader = createSelector(getUserState, (state: AppState) => {
+  return state.isLoading;
+});
+
+export const getAllUsers = createSelector(getUserState, (state: AppState) => {
+  return state.users;
+});
+
+export const firstTenUsers = createSelector(getUserState, (state: AppState) => {
+  const users = state.users.slice(0, 10);
+  return {...state, users};
+});
+
+export const getUserById = userId => createSelector(getUserState, (state: AppState) => {
+  const filterDataArray = [];
+  if (state.users) {
+    state.users.forEach((val, index) => {
+      if (state.users[index].userId === userId) {
+        filterDataArray.push(state.users[index]);
+      }
+    });
+    return filterDataArray;
+  } else {
+    return state.users;
+  }
 });

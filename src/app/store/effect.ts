@@ -2,13 +2,12 @@
 
 import { Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
-import { map, switchMap, catchError, tap, concatMap, withLatestFrom, mergeMap } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
+import { map, switchMap, catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 import * as UserActions from './action';
 import { UserService } from '../_services/user.service';
 import { IUser } from '../_interfaces/user';
 import { Router } from '@angular/router';
-import { Action } from '@ngrx/store';
 
 @Injectable()
 export class UserEffects {

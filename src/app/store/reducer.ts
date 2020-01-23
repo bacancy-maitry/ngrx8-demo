@@ -1,17 +1,15 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { IUser } from '../_interfaces/user';
 import * as UserActions from './action';
-import { HttpErrorResponse } from '@angular/common/http';
+import { IUser } from '../_interfaces/user';
 
-export interface State {
-  data: IUser[];
+export interface AppState {
+  users: IUser[];
   isLoading: boolean;
   message: string;
-  error?: HttpErrorResponse;
 }
 
-const initialState = {
-  data: [],
+const initialState: AppState = {
+  users: [],
   isLoading: false,
   message: '',
 };
@@ -27,7 +25,7 @@ const myReducer = createReducer(
 
   on(UserActions.GetUserSuccess, (state, { payload }) => ({
     ...state,
-    data: payload,
+    users: payload,
     isLoading: false,
     message: 'Data fetch Successfully!',
     error: 'No Errors!',
@@ -35,6 +33,7 @@ const myReducer = createReducer(
 
   on(UserActions.GetUserFail, (state, { errors }) => ({
     ...state,
+    users: [],
     isLoading: false,
     message: 'Something went wrong while get user!',
     error: errors,
@@ -48,7 +47,7 @@ const myReducer = createReducer(
   ),
 
   on(UserActions.PostUserSuccess, (state, { payload }) => ({
-      data: [...state.data, payload],
+      users: [...state.users, payload],
       isLoading: false,
       message: 'Data Updated Successfully!',
       error: 'No Errors!',
@@ -62,6 +61,6 @@ const myReducer = createReducer(
   })),
 
 );
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: AppState | undefined, action: Action) {
   return myReducer(state, action);
 }
