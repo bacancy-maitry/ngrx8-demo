@@ -48,11 +48,18 @@ export class GetUserComponent implements OnInit {
   }
 
   getUserById() {
-    const data = this.store.pipe(select(fromUsers.getUserById(this.userId)));
+    // const data = this.store.pipe(select(fromUsers.getUserById(this.userId)));
+    // data.subscribe((response) => {
+    //   console.log('response', response);
+    //   this.userData$ = response;
+    // });
+
+    const data = this.store.pipe(select(fromUsers.getUserById, { userId: this.userId }));
     data.subscribe((response) => {
       console.log('response', response);
       this.userData$ = response;
     });
+
   }
 
 }
