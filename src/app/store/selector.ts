@@ -21,12 +21,10 @@ export const firstTenUsers = createSelector(getUserState, (state: AppState) => {
 export const getUserById = createSelector(
   getUserState,
   (state: AppState, props) => {
-    const filterDataArray = [];
+    let filterDataArray = [];
     if (state.users) {
-      state.users.forEach((val, index) => {
-        if (state.users[index].userId === props.userId) {
-          filterDataArray.push(state.users[index]);
-        }
+      filterDataArray = state.users.filter((data) => {
+        return data.userId === props.userId;
       });
       return filterDataArray;
     } else {
